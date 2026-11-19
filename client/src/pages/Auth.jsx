@@ -7,13 +7,20 @@ import { FcGoogle } from "react-icons/fc";
 import { HiSparkles } from "react-icons/hi";
 import { auth, provider } from '../utils/firebase.js';
 import { signInWithPopup } from "firebase/auth";
+import serverUrl from "../config.js"
+import axios from "axios";
 
 function Auth() {
   
   const handleGoogleLogin = async () => {
     try{
       const response = await signInWithPopup(auth,provider)
-      console.log(response) 
+      let user = response.user;
+      let name = user.displayName;
+      let email = user.email;
+      
+      const result = await axios.post( serverUrl + "/api/auth/google", { name, email }, { withCredentials: true });
+      console.log(result.data) 
     }catch(error){
       console.log(error)
     }

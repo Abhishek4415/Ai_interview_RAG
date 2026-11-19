@@ -25,3 +25,6 @@ dist-ssr
 
 #security
 .env
+.docx
+.doc
+.tmp
